@@ -1,5 +1,3 @@
-import random
-import time
 from queue import Queue
 
 queue_request = Queue()
@@ -12,28 +10,30 @@ def generate_request():
     request_number += 1
     request_data = f"Заявка No_{request_number}"
     queue_request.put(request_data)
-    print(f"Заявка No_{request_number} створена")
+    print(f"\n<<< Заявка No_{request_number} створена >>>\n")
 
 
 def process_request():
     if not queue_request.empty():
         processed_request = queue_request.get()
-        print(f"Заявка {processed_request} оброблена\n")
+        print(f"\n<<< Заявка {processed_request} оброблена>>>\n")
     else:
-        print("Черга пуста")
+        print("\n!!! Черга пуста !!!\n")
 
 
-while True:
-    new_request_created = False
+if __name__ == "__main__":
+    while True:
+        print("\n1 - Створити нову заявку")
+        print("2 - Обробити заявку")
+        print("0 - Вийти з програми\n")
+        choice = input("\n______________________________\n| Вітаємо у сервісному центрі \n| Виберіть опцію: ")
 
-    sleep_interval1 = random.randint(1, 5)
-    time.sleep(sleep_interval1)
-    generate_request()
-    new_request_created = True
-
-
-    if new_request_created:
-        sleep_interval2 = random.randint(1, 5)
-        time.sleep(sleep_interval2)
-        process_request()
-
+        if choice == "1":
+            generate_request()
+        elif choice == "2":
+            process_request()
+        elif choice == "0":
+            print("--- Програма завершила роботу. ---")
+            break
+        else:
+            print("\n!!! Невірний вибір. Спробуйте ще раз. !!!\n")
